@@ -46,28 +46,7 @@ def search_by_id(search_id):
     result = cur.execute("SELECT * FROM wisata WHERE nama LIKE %s OR wilayah LIKE %s", search_id)
     if result > 0:
         search = cur.fetchall()
-        return jsonify({'data': search}, 200)
-    
-
-# @app.route('/profil', methods=['GET'])
-# def profil():
-#     cur = mysql.connection.cursor()
-#     result = cur.execute("SELECT * FROM register")
-#     if result > 0:
-#         jenis = cur.fetchall()
-#         return jsonify({'data': jenis}, 200)
-
-# @app.route('/register', methods=['POST'])
-# def register():
-#         user = request.form
-#         name = user['name']
-#         email = user['email']
-#         password = user['password']
-#         cur = mysql.connection.cursor()
-#         cur.execute("INSERT INTO register(name, email, password) VALUES(%s, %s, %s)",(name, email, password))
-#         mysql.connection.commit()
-#         cur.close()
-#         return jsonify({'data': user}, 200)
+        return jsonify({'data': search}, 200)    
 
 if __name__ == '__main__':
     app.run(debug=True)
