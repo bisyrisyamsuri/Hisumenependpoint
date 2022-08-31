@@ -43,15 +43,15 @@ def detail_by_id(detail_id):
 @app.route('/galerivideo/<galerivideo_id>', methods=['GET'])
 def galerivideo_by_id(galerivideo_id):
     cur = mysql.connection.cursor()
-    result = cur.execute("SELECT * FROM galeri where id_wisata = %s AND type = 'video'", galerivideo_id)
+    result = cur.execute("SELECT source FROM galeri where id_wisata = %s AND type = 'video'", galerivideo_id)
     if result > 0:
-        galerivideo = cur.fetchall()
+        galerivideo = cur.fetchone()
         return jsonify({'data': galerivideo}, 200)
 
 @app.route('/galerifoto/<galerifoto_id>', methods=['GET'])
 def galerifoto_by_id(galerifoto_id):
     cur = mysql.connection.cursor()
-    result = cur.execute("SELECT * FROM galeri where id_wisata = %s AND type = 'foto'", galerifoto_id)
+    result = cur.execute("SELECT source FROM galeri where id_wisata = %s AND type = 'foto'", galerifoto_id)
     if result > 0:
         galerifoto = cur.fetchall()
         return jsonify({'data': galerifoto}, 200)
@@ -70,7 +70,8 @@ def rekomendasi_by_id():
 #     result = cur.execute("SELECT * FROM wisata WHERE nama LIKE %s OR wilayah LIKE %s", search_id)
 #     if result > 0:
 #         search = cur.fetchall()
-#         return jsonify({'data': search}, 200)    
+#         return jsonify({'data': search}, 200) 
+   
 @app.route('/search', methods=['GET'])
 def search():
     nama = args.get('nama')

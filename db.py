@@ -17,7 +17,7 @@ def select(query, values, conn, key):
     my.execute(query, values)
     row = [x[0] for x in my.description]
     result = my.fetchall()
-    json_data = []
+    json_data = [key, values]
     for r in result:
         json_data.append(dict(zip(row, r)))
     return json_data
