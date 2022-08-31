@@ -12,7 +12,7 @@ def conn(user="root", password="", host="localhost", database="hisumenep"):
     return conn
 
 
-def select(query, values, conn):
+def select(query, values, conn, key):
     my = conn.cursor()
     my.execute(query, values)
     row = [x[0] for x in my.description]

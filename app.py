@@ -1,4 +1,5 @@
 from ast import keyword
+# from crypt import methods
 from unittest import result
 from flask import Flask, request
 from flask_mysqldb import MySQL
@@ -40,6 +41,22 @@ def detail_by_id(detail_id):
         detail = cur.fetchone()
         return jsonify({'data': detail}, 200)
 
+@app.route('/galerivideo/<galerivideo_id>', methods=['GET'])
+def galerivideo_by_id(galerivideo_id):
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM galeri where id_wisata = %s AND type = 'video'", galerivideo_id)
+    if result > 0:
+        galerivideo = cur.fetchall()
+        return jsonify({'data': galerivideo}, 200)
+
+@app.route('/galerifoto/<galerifoto_id>', methods=['GET'])
+def galerifoto_by_id(galerifoto_id):
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM galeri where id_wisata = %s AND type = 'foto'", galerifoto_id)
+    if result > 0:
+        galerifoto = cur.fetchall()
+        return jsonify({'data': galerifoto}, 200)
+
 @app.route('/rekomendasi', methods=['GET'])
 def rekomendasi_by_id():
     cur = mysql.connection.cursor()
@@ -47,7 +64,6 @@ def rekomendasi_by_id():
     if result > 0:
         rekomendasi = cur.fetchall()
         return jsonify({'data': rekomendasi}, 200)
-
     
 # @app.route('/search', methods=['GET', 'POST'])
 # def search_by_id(search_id):
