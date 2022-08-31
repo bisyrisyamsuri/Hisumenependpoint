@@ -1,13 +1,12 @@
 from ast import keyword
-# from crypt import methods
 from unittest import result
 from flask import Flask, request
 from flask_mysqldb import MySQL
 from flask import jsonify
 import yaml
 
-# access image with url /static/file_name.jpg
-app = Flask(__name__, static_folder='gambar')
+# access image with url /galeri/file_name.jpg
+app = Flask(__name__, static_folder='galeri')
 
 db = yaml.full_load(open('db.yaml'))
 app.config['MYSQL_HOST'] = db['mysql_host']
@@ -98,7 +97,7 @@ def register():
 @app.route('/profil/<profil_id>', methods=['GET'])
 def profil(profil_id):
     cur = mysql.connection.cursor()
-    result = cur.execute("SELECT * FROM user where id = %s", profil_id)
+    result = cur.execute("SELECT * FROM user where username = %s", profil_id)
     if result > 0:
         jenis = cur.fetchall()
         return jsonify({'data': jenis}, 200)
