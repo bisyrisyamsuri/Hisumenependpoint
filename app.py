@@ -35,7 +35,7 @@ def kategori_by_id(kategori_id):
 @app.route('/detail/<detail_id>', methods=['GET'])
 def detail_by_id(detail_id):
     cur = mysql.connection.cursor()
-    result = cur.execute("SELECT * FROM wisata where id = %s", detail_id)
+    result = cur.execute("SELECT * FROM wisata where id = %s", [detail_id])
     if result > 0:
         detail = cur.fetchone()
         return jsonify({'data': detail}, 200)
@@ -43,7 +43,7 @@ def detail_by_id(detail_id):
 @app.route('/galerivideo/<galerivideo_id>', methods=['GET'])
 def galerivideo_by_id(galerivideo_id):
     cur = mysql.connection.cursor()
-    result = cur.execute("SELECT source FROM galeri where id_wisata = %s AND type = 'video'", galerivideo_id)
+    result = cur.execute("SELECT source FROM galeri where id_wisata = %s AND type = 'video'", [galerivideo_id])
     if result > 0:
         galerivideo = cur.fetchone()
         return jsonify({'data': galerivideo}, 200)
@@ -51,7 +51,7 @@ def galerivideo_by_id(galerivideo_id):
 @app.route('/galerifoto/<galerifoto_id>', methods=['GET'])
 def galerifoto_by_id(galerifoto_id):
     cur = mysql.connection.cursor()
-    result = cur.execute("SELECT source FROM galeri where id_wisata = %s AND type = 'foto'", galerifoto_id)
+    result = cur.execute("SELECT source FROM galeri where id_wisata = %s AND type = 'foto'", [galerifoto_id])
     if result > 0:
         galerifoto = cur.fetchall()
         return jsonify({'data': galerifoto}, 200)
